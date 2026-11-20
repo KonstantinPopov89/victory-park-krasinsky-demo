@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en" data-asset-base="../../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Fun Hills · Victory Park</title>
+  <link rel="stylesheet" href="../../../css/app.css">
+</head>
+<body style="padding-bottom:32px">
+  <header class="vp-topbar">
+    <div class="vp-topbar-inner">
+      <a class="vp-brand" href="../../../en/#/">
+        <img src="../../../assets/img/logo-80.webp" alt="Victory Park" width="28" height="28">
+        <span class="vp-brand-name">Victory Park</span>
+      </a>
+      <div class="vp-topbar-actions">
+        <nav class="vp-lang-group" aria-label="Language"><a class="vp-lang-btn" href="../../../ru/attractions/gorki/" aria-current="false">RU</a><a class="vp-lang-btn" href="../../../en/attractions/gorki/" aria-current="true">EN</a><a class="vp-lang-btn" href="../../../hy/attractions/gorki/" aria-current="false">HY</a></nav>
+      </div>
+    </div>
+  </header>
+  <main class="vp-wrap vp-screen vp-screen--narrow" id="main-content" data-ride-detail="gorki">
+    <div class="vp-screen-head">
+      <a class="vp-btn vp-btn--sm vp-btn--ghost" href="../../../en/#/all">← All 35 attractions</a>
+      <a class="vp-btn vp-btn--sm vp-btn--ghost" href="../../../en/#/">Home</a>
+    </div>
+    <article class="vp-ride-card">
+      <div class="vp-card-media" style="height:300px">
+        <img src="../../../assets/photos/gorki-780.webp"
+             srcset="../../../assets/photos/gorki-390.webp 390w, ../../../assets/photos/gorki-780.webp 780w, ../../../assets/photos/gorki-1440.webp 1440w"
+             sizes="(max-width:780px) 100vw, 780px" width="780" height="520" alt="Fun Hills" fetchpriority="high" decoding="async">
+        <span class="vp-photo-badge">Demo photo · AI</span>
+      </div>
+      <div class="vp-card-body" style="padding:20px;gap:12px">
+        <div class="vp-card-head">
+          <h1 class="vp-card-title" style="font-size:24px">Fun Hills</h1>
+          <span class="vp-card-price" style="font-size:17px">800 ֏</span>
+        </div>
+        <div>
+          <span class="vp-status-pill vp-status-pill--open" data-ride-status="open">
+            <span class="vp-dot" aria-hidden="true"></span>Open · demo status
+          </span>
+        </div>
+        <p class="vp-card-vibe" style="font-size:15px">Classic coaster hills and curves overlooking the park alleys.</p>
+        <div style="font-size:13.5px;color:var(--vp-ink-muted)">Demo single-ticket reference: <strong style="color:var(--vp-ink)">800 ֏</strong> (≈ 184 ₽ · $2.2). Approx. via static CBA rate (2026-11-12); settled in AMD.</div>
+        <div class="vp-notice" style="margin:2px 0">Included in the demo personal 1-day unlimited (31 of 35 rides, 9,900 ֏).</div>
+        <div class="vp-notice" style="margin:0">Official age, height, weight, and companion admission rules are unconfirmed and verified on site.</div>
+        <div class="vp-switch-row" style="margin-top:8px">
+          <button type="button" class="vp-btn vp-btn--ghost" id="detail-heart-btn" data-detail-heart="gorki" aria-pressed="false">Save with heart</button>
+          <a class="vp-btn vp-btn--primary" href="../../../en/?addRide=gorki#/day" data-detail-buy="gorki">Add to my day &amp; estimate</a>
+        </div>
+      </div>
+    </article>
+  </main>
+  <script src="../../../js/pricing.js"></script>
+  <script src="../../../js/store.js"></script>
+  <script>
+    (function () {
+      var slug = "gorki";
+      var btn = document.getElementById('detail-heart-btn');
+      var txtAdd = "Save with heart";
+      var txtOn = "Saved in your day ♥";
+      function sync() {
+        var st = window.VPFullStore.getState();
+        var on = st.hearts.indexOf(slug) >= 0;
+        btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+        btn.textContent = on ? txtOn : txtAdd;
+        btn.className = on ? 'vp-btn vp-btn--cobalt' : 'vp-btn vp-btn--ghost';
+      }
+      btn.addEventListener('click', function () {
+        window.VPFullStore.mutate(function (st) {
+          var i = st.hearts.indexOf(slug);
+          if (i >= 0) { st.hearts.splice(i, 1); window.VPFullStore.track('heart_off', { slug: slug, source: 'detail' }); }
+          else { st.hearts.push(slug); window.VPFullStore.track('heart_on', { slug: slug, source: 'detail' }); }
+        });
+        sync();
+      });
+      window.VPFullStore.subscribe(sync);
+      sync();
+    })();
+  </script>
+</body>
+</html>
